@@ -10,9 +10,9 @@ type CommentListProps = {
 };
 
 export default function CommentList({comments, onDelete}: CommentListProps) {
-  console.log("comments:", comments);
+  // console.log("comments:", comments);
   const {user, isLoading} = useUser();
-  console.log("user:", user, isLoading);
+  // console.log("user:", user, isLoading);
   return (
     <div className="space-y-6 mt-10">
       {comments &&

@@ -67,3 +67,11 @@ match your `.env.local` file.
 ### nextjs 资料
 
 - https://auth0.com/blog/ultimate-guide-nextjs-authentication-auth0/
+
+- https://docs.upstash.com/redis/sdks/javascriptsdk/getstarted
+
+redis 操作命令
+
+- 官方 demo：https://github.com/vercel/next.js/tree/canary/examples/with-redis
+- https://vercel.com/templates/next.js/blog-with-comments
+- https://docs.upstash.com/redis/overall/rediscompatibility

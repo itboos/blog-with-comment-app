@@ -7,7 +7,7 @@ export default async function fetchComment(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = clearUrl(req.headers.referer);
+  // const url = clearUrl(req.headers.referer);
 
   if (!redis) {
     return res.status(500).json({message: "Failed to connect to redis."});
@@ -15,16 +15,7 @@ export default async function fetchComment(
 
   try {
     // get data
-    const rawComments = await redis.lrange(url, 0, -1);
-    console.log("rawComments:", rawComments);
-
-    // string data to object
-    const comments = rawComments.map((c) => {
-      const comment: Comment = JSON.parse(c);
-      delete comment.user.email;
-      return comment;
-    });
-
+    const comments: Array<Comment> = await redis.lrange("comments", 0, 20);
     return res.status(200).json(comments);
   } catch (_) {
     return res.status(400).json({message: "Unexpected error occurred."});

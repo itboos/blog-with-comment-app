@@ -1,31 +1,35 @@
-import IORedis, { Redis } from 'ioredis'
+import {Redis} from "@upstash/redis";
 
 function fixUrl(url: string) {
   if (!url) {
-    return ''
+    return "";
   }
-  if (url.startsWith('redis://') && !url.startsWith('redis://:')) {
-    return url.replace('redis://', 'redis://:')
+  if (url.startsWith("redis://") && !url.startsWith("redis://:")) {
+    return url.replace("redis://", "redis://:");
   }
-  if (url.startsWith('rediss://') && !url.startsWith('rediss://:')) {
-    return url.replace('rediss://', 'rediss://:')
+  if (url.startsWith("rediss://") && !url.startsWith("rediss://:")) {
+    return url.replace("rediss://", "rediss://:");
   }
-  return url
+  return url;
 }
 
 class ClientRedis {
-  static instance: Redis
+  static instance: Redis;
 
   constructor() {
-    throw new Error('Use Singleton.getInstance()')
+    throw new Error("Use Singleton.getInstance()");
   }
 
   static getInstance(): Redis | null {
     if (!ClientRedis.instance) {
-      ClientRedis.instance = new IORedis(fixUrl(process.env.REDIS_URL!))
+      const redis = new Redis({
+        url: process.env.REDIS_URL,
+        token: process.env.REDIE_TOKEN,
+      });
+      ClientRedis.instance = redis;
     }
-    return ClientRedis.instance
+    return ClientRedis.instance;
   }
 }
 
-export default ClientRedis.getInstance()
+export default ClientRedis.getInstance();
