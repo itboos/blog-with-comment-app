@@ -75,3 +75,4 @@ redis 操作命令
 - 官方 demo：https://github.com/vercel/next.js/tree/canary/examples/with-redis
 - https://vercel.com/templates/next.js/blog-with-comments
 - https://docs.upstash.com/redis/overall/rediscompatibility
+- redis 操作命令： https://www.runoob.com/redis/lists-lrem.html

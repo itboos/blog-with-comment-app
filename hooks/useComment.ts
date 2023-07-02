@@ -2,7 +2,7 @@ import type {Comment} from "../interfaces";
 import React, {useState} from "react";
 import useSWR from "swr";
 import {useUser} from "@auth0/nextjs-auth0/client";
-import {getAccessToken, withApiAuthRequired} from "@auth0/nextjs-auth0";
+// import {getAccessToken, withApiAuthRequired} from "@auth0/nextjs-auth0";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -32,17 +32,17 @@ export default function useComments() {
     }
   };
 
+  // https://github.com/vercel/next.js/pull/51874 目前 2023.07.02 delete 方法 body 未传的 bug
   const onDelete = async (comment: Comment) => {
-    // const token = await getAccessTokenSilently();
-
     const token = "testToken";
 
     try {
-      await fetch("/api/comment", {
-        method: "DELETE",
-        body: JSON.stringify({comment}),
+      // await fetch("/api/comment", {
+      await fetch("/api/deleteComment", {
+        // method: "DELETE",
+        method: "POST",
+        body: JSON.stringify({comment, user}),
         headers: {
-          // Authorization: token,
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
